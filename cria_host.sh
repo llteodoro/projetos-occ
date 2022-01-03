@@ -1,6 +1,6 @@
 #!/bin/bash
 Servidor=$1
 
-echo -e "[teste_server]
+echo -e "[swap]
 $Servidor
 " > hosts_pipeline

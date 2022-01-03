@@ -1,0 +1,21 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger: none
+pr: none
+
+parameters:
+  - name: $(servidor)  
+    type: string
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- script: | 
+          pip install pipenv --user
+          pipenv run install ansible 
+          pipenv run ansible-playbook -i $(servidor) playbook.yml 
+  displayName: 'Executando Playbook'

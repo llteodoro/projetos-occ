@@ -6,9 +6,10 @@
 trigger: none
 pr: none
 
-- name: Servidor
-  type: string
-  default: ""
+parameters:
+  - name: Servidor
+    type: string
+    default: ""
 
 pool:
   vmImage: $(NODE)
@@ -21,15 +22,13 @@ steps:
     SourceFolder: '$(Build.SourcesDirectory)'
     Contents: |
       **/projetos-occ/playbook.yml
-    TargetFolder: '/tmp/
+    TargetFolder: '/tmp/'
 
 - task: Bash@3
   inputs:
     targetType: 'inline'
-    script: |
-      bash /tmp/projetos-occ/cria_host.sh ${{ parameters.Sevidor }}
+    script:  bash /tmp/projetos-occ/cria_host.sh ${{ parameters.Sevidor }}
       
-    
 - task: Docker@2
   displayName: Executing Container
   inputs:

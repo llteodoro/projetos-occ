@@ -6,12 +6,13 @@
 trigger: none
 pr: none
 
-parameters:
-  - name: $(servidor)  
-    type: string
+variables:
+- name: servidor
+  value: $(servidor)
+  readonly: true
 
 pool:
-  vmImage: ubuntu-latest
+  vmImage: $(NODE)
 
 steps:
 - script: | 

@@ -6,17 +6,39 @@
 trigger: none
 pr: none
 
-variables:
-- name: servidor
-  value: $(servidor)
-  readonly: true
+- name: Servidor
+  type: string
+  default: ""
 
 pool:
   vmImage: $(NODE)
 
+
 steps:
-- script: | 
-          pip install pipenv --user
-          pipenv run install ansible 
-          pipenv run ansible-playbook -i $(servidor) playbook.yml 
-  displayName: 'Executando Playbook'
+- task: CopyFiles@2
+  displayName: 'Copy file'
+  inputs:
+    SourceFolder: '$(Build.SourcesDirectory)'
+    Contents: |
+      **/projetos-occ/playbook.yml
+    TargetFolder: '/tmp/
+
+- task: Bash@3
+  inputs:
+    targetType: 'inline'
+    script: |
+      bash /tmp/projetos-occ/cria_host.sh ${{ parameters.Sevidor }}
+      
+    
+- task: Docker@2
+  displayName: Executing Container
+  inputs:
+    command: 'run'
+    arguments: '--rm -v /tmp/projetos-occ/:/tmp/ th1d0ker/ansible:centos8 ansible-playbook -i /tmp/projetos-occ/hosts_pipeline  -vvv'
+
+- task: DeleteFiles@1
+  displayName: Delete Files
+  inputs:
+    SourceFolder: '/tmp/Zabbix-maintenance'
+    Contents: '**/*'
+    RemoveSourceFolder: true

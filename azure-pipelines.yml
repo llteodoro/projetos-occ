@@ -12,7 +12,8 @@ parameters:
     default: ""
 
 pool:
-  vmImage: $(NODE)
+  name: $(NODE)
+  timeoutInMinutes: 20
 
 
 steps:

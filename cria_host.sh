@@ -3,4 +3,4 @@ Servidor=$1
 
 echo -e "[swap]
 $Servidor
-" > hosts_pipeline
+" > /tmp/hosts_pipeline

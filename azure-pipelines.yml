@@ -24,23 +24,23 @@ steps:
     Contents: |
       **/playbook.yml
       **/cria_host.sh
-    TargetFolder: '/tmp/'
+    TargetFolder: '/tmp/clswap/'
 
 - task: Bash@3
   inputs:
     targetType: 'inline'
     script: |
-     bash /tmp/cria_host.sh ${{ parameters.Servidor }}
+     bash /tmp/clswap/cria_host.sh ${{ parameters.Servidor }}
       
 - task: Docker@2
   displayName: Executing Container
   inputs:
     command: 'run'
-    arguments: '--rm -v /tmp/:/tmp/ th1d0ker/ansible:centos8 ansible-playbook -i /tmp/hosts_pipeline /tmp/playbook.yml  -vvv'
+    arguments: '--rm -v /tmp/:/tmp/ th1d0ker/ansible:centos8 ansible-playbook -i /tmp/clswap/hosts_pipeline /tmp/clswap/playbook.yml  -vvv'
 
 - task: DeleteFiles@1
   displayName: Delete Files
   inputs:
-    SourceFolder: '/tmp'
+    SourceFolder: '/tmp/clswap/'
     Contents: '**/*'
     RemoveSourceFolder: true

@@ -39,9 +39,9 @@ steps:
     command: 'run'
     arguments: '--rm -v /tmp/:/tmp/ th1d0ker/ansible:centos8 ansible-playbook -i /tmp/hosts_pipeline /tmp/playbook.yml  -vvv'
 
-#- task: DeleteFiles@1
-#  displayName: Delete Files
-#  inputs:
-#    SourceFolder: '/tmp'
-#    Contents: '**/*'
-#    RemoveSourceFolder: true
+- task: DeleteFiles@1
+  displayName: Delete Files
+  inputs:
+    SourceFolder: '/tmp'
+    Contents: '**/*'
+    RemoveSourceFolder: true

@@ -23,6 +23,7 @@ steps:
     SourceFolder: '$(Build.SourcesDirectory)'
     Contents: |
       **/projetos-occ/playbook.yml
+      **/projetos-occ/cria_host.sh
     TargetFolder: '/tmp/'
 
 - task: Bash@3

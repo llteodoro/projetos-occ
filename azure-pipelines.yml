@@ -22,24 +22,24 @@ steps:
   inputs:
     SourceFolder: '$(Build.SourcesDirectory)'
     Contents: |
-      **/projetos-occ/playbook.yml
-      **/projetos-occ/cria_host.sh
+      **/playbook.yml
+      **/cria_host.sh
     TargetFolder: '/tmp/'
 
 - task: Bash@3
   inputs:
     targetType: 'inline'
-    script:  bash /tmp/projetos-occ/cria_host.sh ${{ parameters.Servidor }}
+    script:  bash /tmp/cria_host.sh ${{ parameters.Servidor }}
       
 - task: Docker@2
   displayName: Executing Container
   inputs:
     command: 'run'
-    arguments: '--rm -v /tmp/projetos-occ/:/tmp/ th1d0ker/ansible:centos8 ansible-playbook -i /tmp/projetos-occ/hosts_pipeline  -vvv'
+    arguments: '--rm -v /tmp/projetos-occ/:/tmp/ th1d0ker/ansible:centos8 ansible-playbook -i /tmp/hosts_pipeline  -vvv'
 
 - task: DeleteFiles@1
   displayName: Delete Files
   inputs:
-    SourceFolder: '/tmp/projetos-occ'
+    SourceFolder: '/tmp'
     Contents: '**/*'
     RemoveSourceFolder: true

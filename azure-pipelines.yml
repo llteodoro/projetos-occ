@@ -36,7 +36,7 @@ steps:
   displayName: Executing Container
   inputs:
     command: 'run'
-    arguments: '--rm -v /tmp/clswap/:/tmp/clswap llteodoro/ansible:1.0 ansible-playbook -i /tmp/clswap/hosts_pipeline /tmp/clswap/playbook.yml --extra-vars "ansible_user=infra ansible_password=$(user_pwd)" -vvv'
+    arguments: '--rm -v /tmp/clswap/:/tmp/clswap llteodoro/ansible:1.0 ansible-playbook -i /tmp/clswap/hosts_pipeline /tmp/clswap/playbook.yml --extra-vars "ansible_user=$(usr_name) ansible_password=$(user_pwd)" -vvv'
 
 - task: DeleteFiles@1
   displayName: Delete Files
